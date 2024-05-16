@@ -38,9 +38,6 @@ gsub(/,/,"",$3);
 $1=="Chimeric" && $2=="Paired:"{
 gsub(/,/,"",$3);
  normal=normal+$3}
-$2=="Ambiguous:"{
-gsub(/,/,"",$3);
- abnorm=abnorm+$3}
 $1=="Alignable"{
 gsub(/,/,"",$4);
  alignable=alignable+$4}
@@ -57,7 +54,6 @@ END{
  printf("%s %'d\n", "Sequenced Read Pairs:", total);
  printf(" %s %'d (%0.2f%)\n", "Normal Paired:", regular, regular*100/total);
  printf(" %s %'d (%0.2f%)\n", "Chimeric Paired:", normal, normal*100/total);
- printf(" %s %'d (%0.2f%)\n", "Chimeric Ambiguous:", abnorm, abnorm*100/total);
  printf(" %s %'d (%0.2f%)\n", "Unmapped:", unmapped, unmapped*100/total);
  printf(" %s %'d (%0.2f%)\n", "Alignable (Normal+Chimeric Paired):", alignable, alignable*100/total);
  printf("%s %'d\n", "Unique Reads:", dedup);
