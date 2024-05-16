@@ -9,7 +9,7 @@ import shutil
 configfile: "config/config.yaml"
 
 ## Read in samplesheet
-samples = pd.read_table(config["samplesheet"])
+samples = pd.read_csv(config["samplesheet"], sep='\t')
 
 ## Convert all columns to strings
 samples = samples.astype(str)

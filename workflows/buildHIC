@@ -11,7 +11,7 @@ onsuccess:
 configfile: "config/config.yaml"
 
 ## Read in samplesheet
-samples = pd.read_table(config["samplesheet"])
+samples = pd.read_csv(config["samplesheet"], sep='\t')
 
 ## Convert all columns to strings
 samples = samples.astype(str)
@@ -21,6 +21,10 @@ samples['id'] = samples[config['groupBy']].agg('_'.join, axis=1)
 
 ## Use ID's as groups
 groups = list(set(samples['id']))
+
+## Check number of groups vs number of input files to ensure that something is actually being merged before continuing
+if len(groups) == len(samples):
+    raise ValueError("Number of groups is equal to number of input files. Nothing to merge.")
 
 ## Group by id and extract merged_nodups, inter & inter30
 int1 = samples.groupby('id')['inter'].apply(list).to_dict()
